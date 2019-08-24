@@ -53,8 +53,7 @@ Now run `npm run init` from withing the `server` directory, to seed your databas
 
 #### `npm start`
 
-Starts the backend server on Open [http://localhost:3001](http://localhost:3001) to.
-
+Starts the backend server on [http://localhost:3001](http://localhost:3001).
 
 ### Frontend
 
