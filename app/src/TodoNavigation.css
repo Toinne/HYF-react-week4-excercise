@@ -1,0 +1,25 @@
+.TodoNavigation {
+
+}
+
+.TodoNavigation {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1em;
+}
+
+.TodoNavigation a {
+    text-decoration: none;
+    color: white;
+    flex: 1;
+    padding: 1em;
+    text-align: center;
+    margin: 0 1em;
+    cursor: pointer;
+    transition: 0.5s;
+    background-size: 200% auto;
+    background-image: linear-gradient(to right, #C884A6 0%, #E7BBE3 51%, #C884A6 100%);
+    border-radius: 0.5em;
+    display: block;
+}

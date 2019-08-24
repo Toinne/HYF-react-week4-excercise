@@ -1,0 +1,8 @@
+.TodoPage {
+    height: 90vh;
+    background: #CCD5FF;
+    box-shadow: 0 0 10px -2px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 26em;
+}

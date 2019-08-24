@@ -1,0 +1,14 @@
+.TodoList {
+    flex: 1;
+    overflow: auto;
+}
+
+.TodoList ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
