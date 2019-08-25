@@ -53,8 +53,7 @@ Now run `npm run init` from withing the `server` directory, to seed your databas
 
 #### `npm start`
 
-Starts the backend server on Open [http://localhost:3001](http://localhost:3001) to.
-
+Starts the backend server on [http://localhost:3001](http://localhost:3001).
 
 ### Frontend
 
@@ -78,11 +77,11 @@ You will also see any lint errors in the console.
 - On click call function
 - If successful refresh the list by fetching it again and updating the `state`
 
-1. In the navigation make sure the active page is indicated with a color.
+2. In the navigation make sure the active page is indicated with a color.
 
 - Check the documentation on how to do this https://reacttraining.com/react-router/web/guides/quick-start.
 
-1. Split up the list by `category`
+3. Split up the list by `category`
 
 - Remove the overview `Route` and add 2 new routes `/work` and `/private`.
     - When I click the `/work` I only see the items with the `category` `work`
@@ -91,7 +90,7 @@ You will also see any lint errors in the console.
 - Add an optional argument `category` to `getTodos` in `api.js`. Make sure the fetch calls the api with a parameter `category` and the value from the argument.
 - Based on the route call `getTodos` in `TodoList` with either the value `work` or `private`.
 
-1. Implement the edit button
+4. Implement the edit button
 
 When the user clicks edit they are redirected to a page with a prefilled form where they can change the description.
 
