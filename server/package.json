@@ -12,6 +12,6 @@
   },
   "scripts": {
     "start": "nodemon index.js --watch index.js --watch ./*",
-    "init": "node init.js",
+    "init": "node init.js"
   }
 }
