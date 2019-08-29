@@ -26,7 +26,9 @@ class Api {
     }
 
     static async getTodo(id) {
-        throw 'I do not have an implementation yet';
+      return await fetch(
+        `${baseUrl}/todos/${id}`
+      ).then(response => response.json());
     }
 
     static async editTodo(id, todo) {

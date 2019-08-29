@@ -2,23 +2,23 @@ import React from 'react';
 
 import './TodoItem.css';
 
-export default ({ _id, done, description, onResolve, onEdit }) => {
+export default ({ _id, done, description, onResolve, onEditClick }) => {
 
     const onResolveClick = (event) => {
         event.preventDefault();
         onResolve(_id);
     };
 
-    const onEditClick = (event) => {
+    const handleEditClick = (event) => {
         event.preventDefault();
-        onEdit(_id);
+        onEditClick(_id);
     };
 
     return (
         <li className="TodoItem">
             <button onClick={onResolveClick} className={`TodoItem--resolve ${done? 'resolved' : ' '}`}>✓</button>
             <span>{description}</span>
-            <button onClick={onEditClick} className="TodoItem--edit">Edit</button>
+            <button onClick={handleEditClick} className="TodoItem--edit">Edit</button>
         </li>
     )
 }

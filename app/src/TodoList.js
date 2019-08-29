@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 import './TodoList.css';
 import Api from './api'
 import TodoItem from './TodoItem';
@@ -29,6 +30,11 @@ class TodoList extends Component {
       await Api.editTodo(id, todo);
       this.fetchData();
     }
+    onEditClick = (id) => {
+      const editingTodoId = id;
+      this.setState({editingTodoId});
+      console.log('hello');
+    }
     render() {
         const {
           todos
@@ -38,7 +44,9 @@ class TodoList extends Component {
         } = this.props;
 
         const todosFiltered =  category ? todos.filter((todo) => todo.category === category) : todos;
-        const todoItems = todosFiltered.map((todo) => <TodoItem key={todo._id} onResolve={this.handleClickedResolve} {...todo} />);
+        const todoItems = todosFiltered.map((todo) => <TodoItem key={todo._id} onResolve={this.handleClickedResolve} onEditClick={this.onEditClick} {...todo} />);
+
+        if (this.state.editingTodoId) { return <Redirect to={`/todos/${this.state.editingTodoId}`} />}
         return (
             <section className="TodoList">
                 <ul>
