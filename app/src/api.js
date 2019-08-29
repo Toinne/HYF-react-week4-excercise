@@ -30,7 +30,15 @@ class Api {
     }
 
     static async editTodo(id, todo) {
-        throw 'I do not have an implementation yet';
+      return await fetch(
+        `${baseUrl}/todos/${id}`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(todo)
+        }
+      ).then(response => response.json());
     }
 
     static async deleteTodo(id, todo) {
