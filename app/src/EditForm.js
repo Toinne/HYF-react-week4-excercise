@@ -11,7 +11,8 @@ class EditForm extends Component {
         this.state = {
             submitted: false,
             description: '',
-            category: ''
+            category: '',
+            done: ''
         }
     }
 
@@ -23,7 +24,8 @@ class EditForm extends Component {
         await Api.editTodo(this.props.id, {
 
             description: todoData.get('description'),
-            category: todoData.get('category')
+            category: this.state.category,
+            done: this.state.done
         });
 
         this.setState({
@@ -36,8 +38,19 @@ class EditForm extends Component {
       const todo = await Api.getTodo(this.props.id);
       this.setState({
         description: todo.description,
-        category: todo.category
+        category: todo.category,
+        done: todo.done
       });
+    }
+    handleChangeCategory = (e) => {
+      this.setState({
+        category: e.currentTarget.value
+      })
+    }
+    handleChangeStatus = (e) => {
+      this.setState({
+        done: e.currentTarget.checked
+      })
     }
     render() {
         return (
@@ -51,12 +64,21 @@ class EditForm extends Component {
 
                 <div>
                     <label htmlFor="category">Category:</label>
-                    <select id="category" name="category">
+                    <select id="category" name="category" value={this.state.category} onChange={this.handleChangeCategory}>
                         <option value="private">private</option>
                         <option value="work">work</option>
                     </select>
                 </div>
-
+                <div>
+                    <label htmlFor="done">Status:
+                      <input
+                        name="done"
+                        type="checkbox"
+                        checked={this.state.done}
+                        onChange={this.handleChangeStatus}
+                      />
+                    </label>
+                </div>
                 <div>
                     <input type="submit" value="Edit" />
                 </div>

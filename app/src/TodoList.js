@@ -33,7 +33,6 @@ class TodoList extends Component {
     onEditClick = (id) => {
       const editingTodoId = id;
       this.setState({editingTodoId});
-      console.log('hello');
     }
     render() {
         const {
