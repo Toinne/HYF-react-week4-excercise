@@ -16,6 +16,7 @@ function TodoApp() {
                     <TodoNavigation />
                     <Switch>
                         <Route exact path="/" component={TodoList}/>
+                        <Route exact path="/home" component={TodoList}/>
                         <Route exact path="/add" component={TodoForm}/>
                     </Switch>
                 </TodoPage>
