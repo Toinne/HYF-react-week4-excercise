@@ -21,8 +21,8 @@ cd server
 npm install
 ```
 
-The `server` uses [nodemon](https://nodemon.io/) to run it's code. 
-Nodemon allows for automatic restarting of the `node` process when changes occur. 
+The `server` uses [nodemon](https://nodemon.io/) to run it's code.
+Nodemon allows for automatic restarting of the `node` process when changes occur.
 Install it globably with:
 ```
 npm install -g nodemon
@@ -36,7 +36,7 @@ You will need to configure a connection url for this database.
 Obtain a connection url from the instructor or use your own if so desired.
 Create a file name `.env` in the `server` directory.
 
-Now add a new line to it. 
+Now add a new line to it.
 
 `CONNECTION_URL=<url_goes_here>`
 
@@ -57,7 +57,7 @@ Starts the backend server on [http://localhost:3001](http://localhost:3001).
 
 ### Frontend
 
-There are more scripts as the frontend is initialized with [create-react-app](https://github.com/facebook/create-react-app) but for this exercise only the useful set is listed. 
+There are more scripts as the frontend is initialized with [create-react-app](https://github.com/facebook/create-react-app) but for this exercise only the useful set is listed.
 
 #### `npm start`
 
@@ -73,7 +73,7 @@ You will also see any lint errors in the console.
 
 1. Implement the resolve button
 
-- Implement the `editTodo` in `api.js`. 
+- Implement the `editTodo` in `api.js`.
 - On click call function
 - If successful refresh the list by fetching it again and updating the `state`
 
@@ -84,11 +84,11 @@ You will also see any lint errors in the console.
 3. Split up the list by `category`
 
 - Remove the overview `Route` and add 2 new routes to `/work` and to `/private`.
-- Instead of component define a `render` property on the `Route`. 
-- The `render` property should be implemented with a function that returns the `TodoList` 
+- Instead of component define a `render` property on the `Route`.
+- The `render` property should be implemented with a function that returns the `TodoList`
 - The `TodoList` should be returned with a prop `category`and the value being either `work` or `private` depending on the route.
 - See https://reacttraining.com/react-router/web/api/Route/render-func for an example.
-- In `TodoLisst` filter the todos that do not match the category.
+- In `TodoList` filter the todos that do not match the category.
     - In the `render` function, `this.state.todos` should be filtered with `.filter`
     - Keep the `todos` that match `this.props.category`
 
@@ -110,6 +110,6 @@ When the user clicks edit they are redirected to a page with a prefilled form wh
     - make sure the you import the `Api` from `./api.js` in `EditForm.js`
     - Call the static function `getTodo` on `Api` with the `id` of the todo
     - Check the documentation on how to get the `id` from the route it is something `react-router-dom` supports https://reacttraining.com/react-router/web/example/url-params
-    - Set the result of the call to a `state` variable called `todo` 
-- Set the form input values with data from `this.state.todo` 
+    - Set the result of the call to a `state` variable called `todo`
+- Set the form input values with data from `this.state.todo`
 - On submit instead of calling `Api.addTodo` call `Api.editTodo`.

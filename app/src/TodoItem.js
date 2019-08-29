@@ -2,7 +2,7 @@ import React from 'react';
 
 import './TodoItem.css';
 
-export default ({ _id, description, onResolve, onEdit }) => {
+export default ({ _id, done, description, onResolve, onEdit }) => {
 
     const onResolveClick = (event) => {
         event.preventDefault();
@@ -16,7 +16,7 @@ export default ({ _id, description, onResolve, onEdit }) => {
 
     return (
         <li className="TodoItem">
-            <button onClick={onResolveClick} className="TodoItem--resolve">✓</button>
+            <button onClick={onResolveClick} className={`TodoItem--resolve ${done? 'resolved' : ' '}`}>✓</button>
             <span>{description}</span>
             <button onClick={onEditClick} className="TodoItem--edit">Edit</button>
         </li>

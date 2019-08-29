@@ -12,28 +12,37 @@ class TodoList extends Component {
         }
     }
 
-    async componentDidMount() {
-        const todos = await Api.getTodos();
-        this.setState({
-            todos
-        })
+    componentDidMount() {
+      this.fetchData();
     }
-    handleClickedResolve = (id) => {
+
+    async fetchData() {
+      const todos = await Api.getTodos();
+      this.setState({
+        todos
+      });
+    }
+
+    handleClickedResolve = async (id) => {
       const todo = this.state.todos.find(todo=>todo._id === id);
       todo.done = !todo.done;
-      Api.editTodo(id, todo);
+      await Api.editTodo(id, todo);
+      this.fetchData();
     }
     render() {
         const {
-            todos
+          todos
         } = this.state;
+        const {
+          category
+        } = this.props;
 
-        const $todos = todos.map((todo) => <TodoItem key={todo._id} onResolve={this.handleClickedResolve} {...todo} />);
-
+        const todosFiltered =  category ? todos.filter((todo) => todo.category === category) : todos;
+        const todoItems = todosFiltered.map((todo) => <TodoItem key={todo._id} onResolve={this.handleClickedResolve} {...todo} />);
         return (
             <section className="TodoList">
                 <ul>
-                    {$todos}
+                    {todoItems}
                 </ul>
             </section>
         )

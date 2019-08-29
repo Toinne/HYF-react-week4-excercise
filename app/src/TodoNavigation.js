@@ -6,8 +6,10 @@ import './TodoNavigation.css';
 export default () => {
     return (
         <nav className="TodoNavigation">
-            <NavLink to="/" exact activeClassName="active" activeStyle={{ color: '#7cc6fe', backgroundColor: 'pink' }}>Overview</NavLink>
-            <NavLink to="/add" exact activeClassName="active" activeStyle={{ color: '#7cc6fe', backgroundColor: 'pink' }}>Add todo</NavLink>
+        <NavLink to="/" exact activeClassName="active">All</NavLink>
+            <NavLink to="/work" exact activeClassName="active">Work</NavLink>
+            <NavLink to="/private" exact activeClassName="active" >Private</NavLink>
+            <NavLink to="/add" exact activeClassName="active" >Add todo</NavLink>
         </nav>
     )
 }

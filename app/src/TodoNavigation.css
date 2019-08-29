@@ -24,6 +24,7 @@
     background-color: #7cc6fe;
     display: block;
 }
-.active {
-  background-color: green;
+.TodoNavigation a.active {
+  background-color: pink;
+  color: #7cc6fe;
 }
