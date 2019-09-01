@@ -1,4 +1,7 @@
-const baseUrl = 'http://localhost:3001';
+const isLocalHost = () => {return window.location.hostname === 'localhost' ||  window.location.hostname === '127.0.0.1'};
+
+const baseUrl = isLocalHost() ? 'http://localhost:3001' : 'https://my-todo-app.toinnem.now.sh';
+
 const init = {
     headers:{
         'Content-Type': 'application/json'
@@ -26,11 +29,20 @@ class Api {
     }
 
     static async getTodo(id) {
-        throw 'I do not have an implementation yet';
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'GET',
+            ...init
+        });
+        return response.json();
     }
 
     static async editTodo(id, todo) {
-        throw 'I do not have an implementation yet';
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'PUT',
+            ...init,
+            body: JSON.stringify(todo)
+        });
+        return response.json();
     }
 
     static async deleteTodo(id, todo) {

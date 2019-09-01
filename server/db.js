@@ -13,13 +13,10 @@ class DB {
             return new Promise((resolve) => resolve());
         }
 
-        return new Promise((resolve) => {
-            MongoClient.connect(url,{ useNewUrlParser: true }, (err, client) => {
-                this.client = client;
-                this.db = this.client.db(databaseName);
-                resolve();
-            });
-        })
+        this.client = await MongoClient.connect(url,{ useNewUrlParser: true });
+        this.db = await this.client.db(databaseName);
+
+        return new Promise((resolve) => resolve());
     }
 
     /**

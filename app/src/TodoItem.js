@@ -2,7 +2,7 @@ import React from 'react';
 
 import './TodoItem.css';
 
-export default ({ _id, description, onResolve, onEdit }) => {
+export default ({ _id, description, onResolve, onEdit, done }) => {
 
     const onResolveClick = (event) => {
         event.preventDefault();
@@ -17,7 +17,9 @@ export default ({ _id, description, onResolve, onEdit }) => {
     return (
         <li className="TodoItem">
             <button onClick={onResolveClick} className="TodoItem--resolve">✓</button>
-            <span>{description}</span>
+            <span style={done === true ? { textDecoration: 'line-through' } : {}}>
+                {description}
+            </span>
             <button onClick={onEditClick} className="TodoItem--edit">Edit</button>
         </li>
     )
