@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-
 import './TodoForm.css';
 import Api from './api';
 
@@ -12,20 +11,24 @@ class EditForm extends Component {
             submitted: false,
             description: '',
             category: '',
-            done: ''
+            done: '',
+            deadline: ''
         }
     }
-
+    getId(){
+      return this.props.match.params.id;
+    }
     handleSubmit = async (event) => {
         event.preventDefault();
         //loading the data from the form
         const todoData = new FormData(event.target);
 
-        await Api.editTodo(this.props.id, {
+        await Api.editTodo(this.getId(), {
 
             description: todoData.get('description'),
             category: this.state.category,
-            done: this.state.done
+            done: this.state.done,
+            deadline: todoData.get('deadline')
         });
 
         this.setState({
@@ -35,11 +38,12 @@ class EditForm extends Component {
 
     //this is for loading the data, so in the render it shows the previous data
     async componentDidMount(){
-      const todo = await Api.getTodo(this.props.id);
+      const todo = await Api.getTodo(this.getId());
       this.setState({
         description: todo.description,
         category: todo.category,
-        done: todo.done
+        done: todo.done,
+        deadline: todo.deadline
       });
     }
     handleChangeCategory = (e) => {
@@ -52,7 +56,11 @@ class EditForm extends Component {
         done: e.currentTarget.checked
       })
     }
+    handleDelete = async (event) => {
+      await Api.deleteTodo(this.getId(), this.props.todo );
+    }
     render() {
+      console.log(this.state);
         return (
             <form onSubmit={this.handleSubmit} className="TodoForm">
 
@@ -70,20 +78,30 @@ class EditForm extends Component {
                     </select>
                 </div>
                 <div>
+                    <label htmlFor="deadline">Deadline:</label>
+                    <input
+                      type="date"
+                      id="deadline"
+                      name="deadline"
+                      defaultValue={this.state.deadline}/>
+                </div>
+                <div>
                     <label htmlFor="done">Status:
                       <input
                         name="done"
                         type="checkbox"
-                        checked={this.state.done}
+                        checked={this.state.done || false}
                         onChange={this.handleChangeStatus}
                       />
                     </label>
                 </div>
                 <div>
                     <input type="submit" value="Edit" />
+                    <button onClick={this.handleDelete} className="buttonDelete" type="submit" value="Delete">Delete</button>
                 </div>
                 {this.state.submitted && <Redirect to= "/"/>}
             </form>
+
         )
     }
 }

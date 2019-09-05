@@ -26,8 +26,12 @@
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-.TodoItem button.resolved {
+.TodoItem.resolved button {
   background: green;
+}
+.TodoItem.resolved span {
+  text-decoration: line-through;
+  text-decoration-color: red;
 }
 .TodoItem button.TodoItem--edit {
     background: #C884A6;

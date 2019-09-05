@@ -19,7 +19,7 @@ function TodoApp() {
                         <Route exact path="/work" render={() => <TodoList category="work"/>}/>
                         <Route exact path="/private" render={() => <TodoList category="private"/>}/>
                         <Route exact path="/add" component={TodoForm}/>
-                        <Route exact path="/todos/:id" render={({match}) => <EditForm id={match.params.id}/>}/>
+                        <Route exact path="/todos/:id" component={EditForm}/>
                     </Switch>
                 </TodoPage>
             </div>

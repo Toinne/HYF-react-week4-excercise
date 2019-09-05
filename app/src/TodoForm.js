@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
+
 import './TodoForm.css';
 import Api from './api';
 
@@ -20,7 +21,8 @@ class TodoForm extends Component {
 
         await Api.addTodo({
             description: todoData.get('description'),
-            category: todoData.get('category')
+            category: todoData.get('category'),
+            deadline: todoData.get('deadline')
         });
 
         this.setState({
@@ -46,7 +48,10 @@ class TodoForm extends Component {
                         <option value="work">work</option>
                     </select>
                 </div>
-
+                <div>
+                    <label htmlFor="deadline">Deadline:</label>
+                    <input type="date" id="deadline" name="deadline" />
+                </div>
                 <div>
                     <input type="submit" value="Add" />
                 </div>
