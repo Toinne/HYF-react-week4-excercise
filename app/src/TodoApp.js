@@ -6,7 +6,7 @@ import TodoNavigation from './TodoNavigation';
 import TodoPage from './TodoPage';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
-
+import EditForm from './EditForm';
 function TodoApp() {
     return (
         <BrowserRouter>
@@ -16,7 +16,10 @@ function TodoApp() {
                     <TodoNavigation />
                     <Switch>
                         <Route exact path="/" component={TodoList}/>
+                        <Route exact path="/work" render={() => <TodoList category="work"/>}/>
+                        <Route exact path="/private" render={() => <TodoList category="private"/>}/>
                         <Route exact path="/add" component={TodoForm}/>
+                        <Route exact path="/todos/:id" component={EditForm}/>
                     </Switch>
                 </TodoPage>
             </div>
