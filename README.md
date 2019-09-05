@@ -83,21 +83,33 @@ You will also see any lint errors in the console.
 
 3. Split up the list by `category`
 
-- Remove the overview `Route` and add 2 new routes `/work` and `/private`.
-    - When I click the `/work` I only see the items with the `category` `work`
-    - When I click the `/private` I only see the items with the `category` `private`
-- As the component for the route you can use `TodoList` but you will want render the component with a property indicating the selected category. See https://reacttraining.com/react-router/web/api/Route/render-func 
-- Add an optional argument `category` to `getTodos` in `api.js`. Make sure the fetch calls the api with a parameter `category` and the value from the argument.
-- Based on the route call `getTodos` in `TodoList` with either the value `work` or `private`.
+- Remove the overview `Route` and add 2 new routes to `/work` and to `/private`.
+- Instead of component define a `render` property on the `Route`. 
+- The `render` property should be implemented with a function that returns the `TodoList` 
+- The `TodoList` should be returned with a prop `category`and the value being either `work` or `private` depending on the route.
+- See https://reacttraining.com/react-router/web/api/Route/render-func for an example.
+- In `TodoLisst` filter the todos that do not match the category.
+    - In the `render` function, `this.state.todos` should be filtered with `.filter`
+    - Keep the `todos` that match `this.props.category`
 
 4. Implement the edit button
 
 When the user clicks edit they are redirected to a page with a prefilled form where they can change the description.
 
-- Copy the `TodoForm` to a new component called `EditForm`.
-- Add a `Route` `/todos/:id`, `EditForm` will be the component for this route.
+- Add a function `onEditClick` in the `TodoList`
+- Add a prop `onEditClick` to `<TodoItem />` in `TodoList` and set the value to `this.onEditClick`
+- In `TodoList.onEditClick` set the id that is passed a first argument to the function to a state variable called `editingTodoId` with `this.setState`
+- Import `Redirect` from `react-router-dom` in `TodoList.js`
+- In the `render` method of `TodoList` add an `if (this.state.editingTodoId) { return <Redirect to={`/todos/${this.state.editingTodoId`} /> }`
+- Copy the `TodoForm.js` to a file component called `EditForm.js`.
+- Rename all occurences of `TodoForm` to `EditForm` in `EditForm.js`
+- Add a `Route` to `/todos/:id` in `TodoNavigation`, `EditForm` will be the `component` for this route.
 - Implement the `getTodo` function in `api.js`
-- In `componentDidMount` you need to call the `getTodo` with the `id` from the route.
-- Check the documentation on how to get the `id` from the route https://reacttraining.com/react-router/web/example/url-params
-- Fill the form with the value from the todo
-- On submit edit the todo by calling `editTodo` and redirect back to the specific category page.
+    - This should be a `GET` `fetch` to `/todos/:id`, `:id` needs to filled in by the argument of the function.
+- In `componentDidMount` of `EditForm` you need to call the newly implemented `getTodo` with the `id` from the route.
+    - make sure the you import the `Api` from `./api.js` in `EditForm.js`
+    - Call the static function `getTodo` on `Api` with the `id` of the todo
+    - Check the documentation on how to get the `id` from the route it is something `react-router-dom` supports https://reacttraining.com/react-router/web/example/url-params
+    - Set the result of the call to a `state` variable called `todo` 
+- Set the form input values with data from `this.state.todo` 
+- On submit instead of calling `Api.addTodo` call `Api.editTodo`.
