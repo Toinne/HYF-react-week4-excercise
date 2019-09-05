@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,13 +12,16 @@ const app = express();
 // Opens a long live connection until the process exits
 // Use this connection in each handler
 const dbClient = new Database();
-dbClient.connect();
+const dbConnectMiddleware = (req, res, next) => {
+    dbClient.connect().then(next);
+};
+app.use(dbConnectMiddleware);
 
 // Parse json bodies
 app.use(bodyParser.json());
 
 // Allow requests from our frontend
-const whitelist = ['http://localhost:3000'];
+const whitelist = [process.env.APP_ORIGIN];
 const corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -27,7 +32,6 @@ const corsOptions = {
     }
 };
 app.use(cors(corsOptions));
-
 
 // ROUTES
 

@@ -23,3 +23,8 @@
     border-radius: 0.5em;
     display: block;
 }
+
+.TodoNavigation .active {
+    background-color: black;
+    background-image: initial;
+}

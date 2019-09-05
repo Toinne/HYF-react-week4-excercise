@@ -102,7 +102,7 @@ When the user clicks edit they are redirected to a page with a prefilled form wh
 - Import `Redirect` from `react-router-dom` in `TodoList.js`
 - In the `render` method of `TodoList` add an `if (this.state.editingTodoId) { return <Redirect to={`/todos/${this.state.editingTodoId`} /> }`
 - Copy the `TodoForm.js` to a file component called `EditForm.js`.
-- Rename all occurences of `TodoForm` to `EditForm` in `EditForm.js`
+- Rename all occurrences of `TodoForm` to `EditForm` in `EditForm.js`
 - Add a `Route` to `/todos/:id` in `TodoNavigation`, `EditForm` will be the `component` for this route.
 - Implement the `getTodo` function in `api.js`
     - This should be a `GET` `fetch` to `/todos/:id`, `:id` needs to filled in by the argument of the function.
@@ -113,3 +113,34 @@ When the user clicks edit they are redirected to a page with a prefilled form wh
     - Set the result of the call to a `state` variable called `todo` 
 - Set the form input values with data from `this.state.todo` 
 - On submit instead of calling `Api.addTodo` call `Api.editTodo`.
+
+5. Implement a delete button
+
+- Implement `Api.deleteTodo` in `api.js`
+- This should be a `DELETE` fetch request to `/todos/:id`
+- Add a button to the `EditForm`
+- `onClick` of the button call `Api.deleteTodo` with the correct id
+- Redirect to the overview page when completed
+
+6. Add a new field deadline
+
+- Add a field to the `TodoForm` and `EditForm` called `deadline`
+    - Add an input with type `date` to the form
+    - Make sure you have a `label` for this new field
+- Implement the new field in `handleSubmit`
+    - Look at the other fields on how to do this
+- Verify that the deadline is correctly saved
+
+7. Check deadline
+
+- Colors the todos that are approaching the deadline
+    - Todo's that are past deadline get the color red
+    - Todo's that need to be completed by tomorrow get the color yellow
+    
+8. Refactor
+
+`TodoForm` and `EditTodoForm` have a lot of code that is the same. 
+When we added a field to the `Todo` we had to implement it in both the `EditForm` and `TodoForm`.
+That is annoying and we decided to refactor this.
+By using composition we will fix this.
+

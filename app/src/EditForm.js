@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-
 import './TodoForm.css';
 import Api from './api';
 
-class TodoForm extends Component {
+class EditForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            submitted: false
+            submitted: false,
+            todo: {},
         }
+    }
+
+    async componentDidMount() {
+        const id = this.props.match.params.id;
+        const todo = await Api.getTodo(id);
+        this.setState({
+            todo
+        });
     }
 
     handleSubmit = async (event) => {
@@ -18,7 +26,8 @@ class TodoForm extends Component {
 
         const todoData = new FormData(event.target);
 
-        await Api.addTodo({
+        const id = this.props.match.params.id;
+        await Api.editTodo(id ,{
             description: todoData.get('description'),
             category: todoData.get('category'),
             deadline: todoData.get('deadline')
@@ -37,14 +46,13 @@ class TodoForm extends Component {
 
                 <div>
                     <label htmlFor="description">Description:</label>
-                    <input id="description" name="description" type="text" />
+                    <input id="description" defaultValue={this.state.todo.description} name="description" type="text" />
                 </div>
-
                 <div>
                     <label htmlFor="category">Category:</label>
                     <select id="category" name="category">
-                        <option value="private">private</option>
-                        <option value="work">work</option>
+                        <option selected={this.state.todo.category === 'private' ? 'selected' : ''} value="private">private</option>
+                        <option selected={this.state.todo.category === 'work' ? 'selected' : ''} value="work">work</option>
                     </select>
                 </div>
 
@@ -54,12 +62,13 @@ class TodoForm extends Component {
                    
                 </div>
 
+
                 <div>
-                    <input type="submit" value="Add" />
+                    <input type="submit" value="Edit" />
                 </div>
             </form>
         )
     }
 }
 
-export default TodoForm;
+export default EditForm;
