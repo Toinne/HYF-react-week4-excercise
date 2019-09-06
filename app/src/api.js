@@ -25,16 +25,30 @@ class Api {
         return response.json();
     }
 
-    static async getTodo(id) {
-        throw 'I do not have an implementation yet';
+      static async getTodo(id) {
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'GET',
+            ...init
+        });
+        return response.json();
     }
 
     static async editTodo(id, todo) {
-        throw 'I do not have an implementation yet';
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'PUT',
+            ...init,
+            body: JSON.stringify(todo)
+        });
+        return response.json();
     }
 
     static async deleteTodo(id, todo) {
-        throw 'I do not have an implementation yet';
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'DELETE',
+            ...init,
+            body: JSON.stringify(todo)
+        });
+        return response.json();
     }
 
 
