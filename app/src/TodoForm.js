@@ -20,7 +20,9 @@ class TodoForm extends Component {
 
         await Api.addTodo({
             description: todoData.get('description'),
-            category: todoData.get('category')
+            category: todoData.get('category'),
+            deadline: todoData.get('deadline'),
+
         });
 
         this.setState({
@@ -45,6 +47,10 @@ class TodoForm extends Component {
                         <option value="private">private</option>
                         <option value="work">work</option>
                     </select>
+                </div>
+             <div>
+                    <label htmlFor="deadline">Deadline:</label>
+                    <input id="deadline" name="deadline" type="date" />
                 </div>
 
                 <div>
