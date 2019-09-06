@@ -20,7 +20,8 @@ class TodoForm extends Component {
 
         await Api.addTodo({
             description: todoData.get('description'),
-            category: todoData.get('category')
+            category: todoData.get('category'),
+            deadline: todoData.get('deadline'),
         });
 
         this.setState({
@@ -32,7 +33,7 @@ class TodoForm extends Component {
         return (
             <form onSubmit={this.handleSubmit} className="TodoForm">
 
-                {this.state.submitted ? <Redirect to="/"/> : null}
+                {this.state.submitted ? <Redirect to="/" /> : null}
 
                 <div>
                     <label htmlFor="description">Description:</label>
@@ -46,10 +47,15 @@ class TodoForm extends Component {
                         <option value="work">work</option>
                     </select>
                 </div>
+                <div>
+                    <label htmlFor="deadline">Deadline:</label>
+                    <input id="deadline" name="deadline" type="date" />
+                </div>
 
                 <div>
                     <input type="submit" value="Add" />
                 </div>
+
             </form>
         )
     }
