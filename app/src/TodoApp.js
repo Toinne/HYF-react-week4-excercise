@@ -7,6 +7,7 @@ import TodoPage from './TodoPage';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 
+
 function TodoApp() {
     return (
         <BrowserRouter>
@@ -15,8 +16,11 @@ function TodoApp() {
                     <TodoHeader/>
                     <TodoNavigation />
                     <Switch>
-                        <Route exact path="/" component={TodoList}/>
-                        <Route exact path="/add" component={TodoForm}/>
+                        <Route exact path="/" render={(props) => <TodoList key={'overview'} category={false} {...props} />} />
+                        <Route exact path="/work" render={(props) => <TodoList key={'work'} category="work" {...props} />} />
+                        <Route exact path="/private" render={(props) => <TodoList key={'private'} category="private" {...props} />} />
+                        <Route exact path="/todos/:id" component={EditForm} />
+                        <Route exact path="/add" component={TodoForm} />
                     </Switch>
                 </TodoPage>
             </div>
@@ -25,3 +29,4 @@ function TodoApp() {
 }
 
 export default TodoApp;
+
