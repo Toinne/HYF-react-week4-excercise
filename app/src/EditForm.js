@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import './TodoForm.css';
+import './EditForm.css';
 import Api from './api';
 import { CLIENT_RENEG_LIMIT } from 'tls';
 
-class TodoForm extends Component {
+class EditForm extends Component {
 
     constructor(props) {
         super(props);
@@ -34,7 +34,7 @@ class TodoForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="TodoForm">
+            <form onSubmit={this.handleSubmit} className="EditForm">
 
                 {this.state.submitted ? <Redirect to="/"/> : null}
 
@@ -64,4 +64,4 @@ class TodoForm extends Component {
     }
 }
 
-export default TodoForm;
+export default EditForm;

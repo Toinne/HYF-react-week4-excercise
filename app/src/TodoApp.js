@@ -6,6 +6,7 @@ import TodoNavigation from './TodoNavigation';
 import TodoPage from './TodoPage';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
+import EditForm from '/EditForm';
 
 function TodoApp() {
     return (
@@ -15,8 +16,13 @@ function TodoApp() {
                     <TodoHeader/>
                     <TodoNavigation />
                     <Switch>
-                        <Route exact path="/" component={TodoList}/>
+                        <Route exact path="/work" render ={(props) => (
+                            <TodoList {...props} category={"Work"}/>
+                        )}/>
+                        <Route exact path="/Private" component={TodoList}/>
                         <Route exact path="/add" component={TodoForm}/>
+                        <Route exact path="/" component={TodoList}/>
+                        <Route exact path="/todos/:id" component={EditForm}/>
                     </Switch>
                 </TodoPage>
             </div>

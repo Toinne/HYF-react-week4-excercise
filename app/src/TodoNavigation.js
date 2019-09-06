@@ -1,13 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './TodoNavigation.css';
+const styleSelect = {fontWeight: "bold", color: "red",};
 
 export default () => {
     return (
         <nav className="TodoNavigation">
-            <Link to="/">Overview</Link>
-            <Link to="/add">Add todo</Link>
+            <NavLink exact to="/" activeStyle={styleSelect}>Overview</NavLink>
+
+            <NavLink exact to="/Work" activeStyle={styleSelect}>Work</NavLink>
+
+            <NavLink exact to="/Private" activeStyle={styleSelect}>Private</NavLink>
+
+            <NavLink exact to="/add" activeStyle={styleSelect}>Add todo</NavLink>
         </nav>
     )
 }

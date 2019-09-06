@@ -11,7 +11,7 @@
     "mongodb": "^3.3.1"
   },
   "scripts": {
-    "start": "nodemon index.js --watch index.js --watch ./*",
-    "init": "node init.js",
+    "start": "node index.js",
+    "init": "node init.js"
   }
 }
