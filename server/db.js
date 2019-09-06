@@ -8,129 +8,129 @@ const collectionName = 'todos';
 
 class DB {
 
-    async connect () {
-        if (this.client) {
-            return new Promise((resolve) => resolve());
-        }
-
-        return new Promise((resolve) => {
-            MongoClient.connect(url,{ useNewUrlParser: true }, (err, client) => {
-                this.client = client;
-                this.db = this.client.db(databaseName);
-                resolve();
-            });
-        })
+  async connect() {
+    if (this.client) {
+      return new Promise((resolve) => resolve());
     }
 
-    /**
-     * Get the collection, useful for executing non implemented commands
-     * Only use this is you know what you are doing
-     * @returns {Collection}
-     * @private
-     */
-    _getCollection() {
-        return this.db.collection(collectionName);
-    }
+    return new Promise((resolve) => {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+        this.client = client;
+        this.db = this.client.db(databaseName);
+        resolve();
+      });
+    })
+  }
 
-    /**
-     * Get all the todos
-     * @param category optional category filter
-     * @returns {Promise<*>}
-     */
-    async getTodos (category) {
-        return new Promise((resolve) => {
-            const collection = this.db.collection(collectionName);
+  /**
+   * Get the collection, useful for executing non implemented commands
+   * Only use this is you know what you are doing
+   * @returns {Collection}
+   * @private
+   */
+  _getCollection() {
+    return this.db.collection(collectionName);
+  }
 
-            const findFilter = category ? { "category": { $eq: category } } : {};
+  /**
+   * Get all the todos
+   * @param category optional category filter
+   * @returns {Promise<*>}
+   */
+  async getTodos(category) {
+    return new Promise((resolve) => {
+      const collection = this.db.collection(collectionName);
 
-            collection.find(findFilter).toArray((err, docs) => {
-                resolve(docs);
-            });
-        });
-    }
+      const findFilter = category ? { "category": { $eq: category } } : {};
 
-    /**
-     * Get 1 todo
-     * @param id
-     * @returns {Promise<*>}
-     */
-    async getTodo (id) {
-        return new Promise((resolve) => {
-            const collection = this.db.collection(collectionName);
+      collection.find(findFilter).toArray((err, docs) => {
+        resolve(docs);
+      });
+    });
+  }
 
-            const findFilter = { _id: new Mongo.ObjectId(id) };
+  /**
+   * Get 1 todo
+   * @param id
+   * @returns {Promise<*>}
+   */
+  async getTodo(id) {
+    return new Promise((resolve) => {
+      const collection = this.db.collection(collectionName);
 
-            collection.findOne(findFilter).then((result) => {
-                resolve(result);
-            });
-        });
-    }
+      const findFilter = { _id: new Mongo.ObjectId(id) };
 
-    /**
-     * Insert 1 todo
-     * @param todo
-     * @returns {Promise<*>}
-     */
-    async insertTodo (todo) {
-        return new Promise((resolve) => {
-            const collection = this.db.collection(collectionName);
-            collection.insertOne(todo).then((res) => {
-                resolve(true);
-            });
-        });
-    }
+      collection.findOne(findFilter).then((result) => {
+        resolve(result);
+      });
+    });
+  }
 
-    /**
-     * Update a single todo
-     * @param id
-     * @param newTodoData
-     * @returns {Promise<*>}
-     */
-    async updateTodo(id, newTodoData) {
-        return new Promise((resolve) => {
-            const collection = this.db.collection(collectionName);
+  /**
+   * Insert 1 todo
+   * @param todo
+   * @returns {Promise<*>}
+   */
+  async insertTodo(todo) {
+    return new Promise((resolve) => {
+      const collection = this.db.collection(collectionName);
+      collection.insertOne(todo).then((res) => {
+        resolve(true);
+      });
+    });
+  }
 
-            // Just to be save we are not overwriting id's here
-            const { _id, ...todoData } = {...newTodoData};
+  /**
+   * Update a single todo
+   * @param id
+   * @param newTodoData
+   * @returns {Promise<*>}
+   */
+  async updateTodo(id, newTodoData) {
+    return new Promise((resolve) => {
+      const collection = this.db.collection(collectionName);
 
-            const updateFilter = { _id: new Mongo.ObjectId(id) };
-            const updateOptions = { $set: { ...todoData } };
+      // Just to be save we are not overwriting id's here
+      const { _id, ...todoData } = { ...newTodoData };
 
-            collection.updateOne(updateFilter, updateOptions).then((err, docs) => {
-                resolve(true);
-            });
-        });
-    }
+      const updateFilter = { _id: new Mongo.ObjectId(id) };
+      const updateOptions = { $set: { ...todoData } };
 
-    /**
-     * Delete a single todo
-     * @param id
-     * @returns {Promise<*>}
-     */
-    async deleteTodo(id) {
-        return new Promise((resolve) => {
-            const collection = this.db.collection(collectionName);
+      collection.updateOne(updateFilter, updateOptions).then((err, docs) => {
+        resolve(true);
+      });
+    });
+  }
 
-            const deleteFilter = { _id: new Mongo.ObjectId(id) };
+  /**
+   * Delete a single todo
+   * @param id
+   * @returns {Promise<*>}
+   */
+  async deleteTodo(id) {
+    return new Promise((resolve) => {
+      const collection = this.db.collection(collectionName);
 
-            collection.deleteOne(deleteFilter).then((res) => {
-                resolve(true);
-            });
-        });
-    }
+      const deleteFilter = { _id: new Mongo.ObjectId(id) };
 
-    /**
-     * Drop the entire collection and all of the todos
-     * @returns {Promise<*>}
-     */
-    async clearTodos() {
-        return new Promise((resolve) => {
-            const collection = this.db.collection(collectionName);
-            collection.drop().then((err, docs) => {
-                resolve(true);
-            });
-        });
-    }
+      collection.deleteOne(deleteFilter).then((res) => {
+        resolve(true);
+      });
+    });
+  }
+
+  /**
+   * Drop the entire collection and all of the todos
+   * @returns {Promise<*>}
+   */
+  async clearTodos() {
+    return new Promise((resolve) => {
+      const collection = this.db.collection(collectionName);
+      collection.drop().then((err, docs) => {
+        resolve(true);
+      });
+    });
+  }
 }
 
 module.exports = DB;
