@@ -30,3 +30,7 @@
 .TodoItem button.TodoItem--edit {
     background: #C884A6;
 }
+
+.visibility {
+    visibility: hidden;
+}
