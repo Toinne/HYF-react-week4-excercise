@@ -25,11 +25,19 @@ class Api {
         return response.json();
     }
 
-    static async getTodo(id) {
-        const response  = await fetch(`${baseUrl}/todos/:id`, {
-            method: 'GET',
+    static async editingTodo(id, todo) {
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'PUT',
             ...init,
-            body: JSON.stringify(id)
+            body: JSON.stringify(todo)
+        });
+        return response.json();
+    }
+
+    static async getTodo(id) {
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'GET',
+            ...init
         });
         return response.json();
     }

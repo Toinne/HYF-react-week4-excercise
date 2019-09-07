@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import './TodoForm.css';
 import Api from './api';
-import { CLIENT_RENEG_LIMIT } from 'tls';
+
 
 class TodoForm extends Component {
 
@@ -28,7 +28,7 @@ class TodoForm extends Component {
 
         this.setState({
             submitted: true
-        })
+        });
         
     };
 

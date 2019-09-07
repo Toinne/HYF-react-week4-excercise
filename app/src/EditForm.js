@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import './EditForm.css';
+import './TodoForm.css';
 import Api from './api';
-import { CLIENT_RENEG_LIMIT } from 'tls';
+
 
 class EditForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            submitted: false
+            submitted: false,
+            todo: {}
         }
+    }
+
+    async componentDidMount() {
+        const id = this.props.match.params.id;
+        console.log(id); 
+        const todo = await Api.getTodo(id);
+        this.setState({
+            todo
+        });
     }
 
     handleSubmit = async (event) => {
@@ -19,8 +29,9 @@ class EditForm extends Component {
        
 
         const todoData = new FormData(event.target);
+        const id = this.props.match.params.id;
 
-        await Api.addTodo({
+        await Api.editTodo(id ,{
             description: todoData.get('description'),
             deadline: todoData.get('deadline'),
             category: todoData.get('category')
@@ -31,33 +42,35 @@ class EditForm extends Component {
         })
         
     };
-
+   
     render() {
+
+
         return (
-            <form onSubmit={this.handleSubmit} className="EditForm">
+            <form onSubmit={this.handleSubmit} className="TodoForm">
 
                 {this.state.submitted ? <Redirect to="/"/> : null}
 
                 <div>
                     <label htmlFor="description">Description:</label>
-                    <input id="description" name="description" type="text" />
+                    <input id="description" name="description" value={this.state.todo.description} type="text" />
                 </div>
 
                 <div>
                     <label htmlFor="deadline">Deadline:</label>
-                    <input id="deadline" name="deadline" type="date"/>
+                    <input id="deadline" name="deadline" value={this.state.todo.deadline} type="date"/>
                 </div>
 
                 <div>
                     <label htmlFor="category">Category:</label>
                     <select id="category" name="category">
-                        <option value="private">private</option>
-                        <option value="work">work</option>
+                        <option selected={this.state.todo.category === 'private' ? 'selected' : ''} value="private">private</option>
+                        <option selected={this.state.todo.category === 'work' ? 'selected' : ''} value="work">work</option>
                     </select>
                 </div>
 
                 <div>
-                    <input type="submit" value="Add" />
+                    <input type="submit" value="Update" />
                 </div>
             </form>
         )
