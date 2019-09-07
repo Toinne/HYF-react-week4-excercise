@@ -46,7 +46,11 @@ class Api {
     }
 
     static async deleteTodo(id, todo) {
-        throw 'I do not have an implementation yet';
+        const response  = await fetch(`${baseUrl}/todos/${id}`, {
+            method: 'DELETE',
+            ...init,
+        });
+        return response.json();
     }
 
 

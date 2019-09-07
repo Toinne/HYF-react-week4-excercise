@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-
 import './TodoForm.css';
 import Api from './api';
 
@@ -30,7 +29,8 @@ class EditForm extends Component {
         const id = this.props.match.params.id;
         await Api.editTodo(id ,{
             description: todoData.get('description'),
-            category: todoData.get('category')
+            category: todoData.get('category'),
+            deadline: todoData.get('deadline')
         });
 
         this.setState({
@@ -46,9 +46,8 @@ class EditForm extends Component {
 
                 <div>
                     <label htmlFor="description">Description:</label>
-                    <input id="description" value={this.state.todo.description} name="description" type="text" />
+                    <input id="description" defaultValue={this.state.todo.description} name="description" type="text" />
                 </div>
-
                 <div>
                     <label htmlFor="category">Category:</label>
                     <select id="category" name="category">
@@ -56,6 +55,13 @@ class EditForm extends Component {
                         <option selected={this.state.todo.category === 'work' ? 'selected' : ''} value="work">work</option>
                     </select>
                 </div>
+
+                <div>
+                    <label htmlFor="deadline">Deadline:</label>
+                    <input id="deadline" name="deadline" type="date" />
+                   
+                </div>
+
 
                 <div>
                     <input type="submit" value="Edit" />
